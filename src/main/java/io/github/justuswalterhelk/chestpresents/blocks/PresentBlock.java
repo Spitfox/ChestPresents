@@ -3,14 +3,16 @@ package io.github.justuswalterhelk.chestpresents.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
-public class PresentBlock extends Block {
+public class PresentBlock extends Block implements EntityBlock {
     public PresentBlock(Properties properties) {super(properties);}
 
     private static final VoxelShape SHAPE = makeShape();
@@ -47,5 +49,11 @@ public class PresentBlock extends Block {
         shape = Shapes.join(shape, Shapes.box(1, 0, 0.4375, 1.0625, 1.0625, 0.5625), BooleanOp.OR);
 
         return shape;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
+        return null;
     }
 }
