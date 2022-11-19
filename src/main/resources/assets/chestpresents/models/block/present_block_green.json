@@ -2,7 +2,7 @@
 	"credit": "by Spitfox",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "chestpresents:blocks/schleife",
+		"1": "chestpresents:blocks/schleife_green",
 		"2": "chestpresents:blocks/base",
 		"particle": "chestpresents:blocks/partikel"
 	},
