@@ -3,13 +3,22 @@
   {
     "":[
       {
-        "model": "chestpresents:block/present_block_blue"
+        "model": "chestpresents:block/present_block/yellow_base/present_block_blue"
       },
       {
-        "model": "chestpresents:block/present_block_red"
+        "model": "chestpresents:block/present_block/yellow_base/present_block_red"
       },
       {
-        "model": "chestpresents:block/present_block_green"
+        "model": "chestpresents:block/present_block/yellow_base/present_block_green"
+      },
+      {
+        "model": "chestpresents:block/present_block/orange_base/present_block_blue"
+      },
+      {
+        "model": "chestpresents:block/present_block/orange_base/present_block_red"
+      },
+      {
+        "model": "chestpresents:block/present_block/orange_base/present_block_green"
       }
     ]
   }
