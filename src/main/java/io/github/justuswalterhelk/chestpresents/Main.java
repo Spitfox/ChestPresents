@@ -1,6 +1,8 @@
 package io.github.justuswalterhelk.chestpresents;
 
 import com.mojang.logging.LogUtils;
+import io.github.justuswalterhelk.chestpresents.blocks.PresentBlock;
+import io.github.justuswalterhelk.chestpresents.blocks.PresentBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -61,10 +63,10 @@ public class Main {
     }
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Main.MODID);
-
     @SubscribeEvent
     public void PlayerInteract(PlayerInteractEvent.RightClickBlock event)
     {
+
         Level level = event.getLevel();
         BlockPos position = event.getPos();
         Player player = event.getEntity();
@@ -74,41 +76,42 @@ public class Main {
         if(blockToPlace.is(BlockInit.presentBlock.get().asItem()))
         {
             CompoundTag tag = blockToPlace.getTag();
-            ItemStackHandler inv = new ItemStackHandler(27);
-            inv.deserializeNBT(tag);
-            for(int i = 0; i < inv.getSlots(); i++)
-            {
-                //Need Entity to store the data on the Block before destroying it!
-            }
+            BlockEntity block1 =  level.getBlockEntity(position.above());
+            System.out.print("BlockEntity at " + position);
+            System.out.print(block1);
+            //System.out.print(level.getBlockEntity(position, BlockEntityInit.present_block_entity.get()));
+           // entity.load(tag);
         }
-
-        BlockEntity block = level.getBlockEntity(position);
-        try {
-            ChestBlockEntity chest = (ChestBlockEntity) block;
-            if (chest != null && player.isCrouching()) {
-                InvWrapper handler = (InvWrapper) chest.getCapability(ForgeCapabilities.ITEM_HANDLER).orElseThrow(RuntimeException::new);
-                ItemStackHandler inv = new ItemStackHandler(handler.getSlots());
-                for(int i = 0; i < handler.getSlots(); i++)
-                {
-                    inv.setStackInSlot(i, handler.getStackInSlot(i));
-                }
-                CompoundTag tag = inv.serializeNBT();
-                chest.clearContent();
-                level.destroyBlock(position, false);
-                ItemStack present = new ItemStack(ItemInit.present_item.get());
-
-
-                present.setTag(tag);
-
-                ItemEntity item = new ItemEntity(level, position.getX(), position.getY(), position.getZ(), present);
-                level.addFreshEntity(item);
-            }
-        }
-        catch (Exception e)
+        else
         {
+            BlockEntity block = level.getBlockEntity(position);
+            try {
+                ChestBlockEntity chest = (ChestBlockEntity) block;
+                if (chest != null && player.isCrouching()) {
+                    InvWrapper handler = (InvWrapper) chest.getCapability(ForgeCapabilities.ITEM_HANDLER).orElseThrow(RuntimeException::new);
+                    ItemStackHandler inv = new ItemStackHandler(handler.getSlots());
+                    for(int i = 0; i < handler.getSlots(); i++)
+                    {
+                        inv.setStackInSlot(i, handler.getStackInSlot(i));
+                    }
+                    CompoundTag tag = inv.serializeNBT();
+                    chest.clearContent();
+                    level.destroyBlock(position, false);
+                    ItemStack present = new ItemStack(ItemInit.present_item.get());
 
+
+                    present.setTag(tag);
+
+                    ItemEntity item = new ItemEntity(level, position.getX(), position.getY(), position.getZ(), present);
+                    level.addFreshEntity(item);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
-        Item item = event.getItemStack().getItem();
+
     }
 }

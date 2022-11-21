@@ -1,6 +1,11 @@
 package io.github.justuswalterhelk.chestpresents.blocks;
 
+import io.github.justuswalterhelk.chestpresents.BlockEntityInit;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -9,10 +14,14 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 public class PresentBlock extends BaseEntityBlock {
@@ -21,11 +30,18 @@ public class PresentBlock extends BaseEntityBlock {
     private static final VoxelShape SHAPE = makeShape();
 
     @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack item) {
+        PresentBlockEntity presentBlockEntity = (PresentBlockEntity) level.getBlockEntity(pos);
+        assert presentBlockEntity != null;
+        presentBlockEntity.itemHandler.deserializeNBT(item.getTag());
+    }
+
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx)
     {
         return SHAPE;
     }
-
 
     public static VoxelShape makeShape(){
         VoxelShape shape = Shapes.empty();
@@ -58,10 +74,24 @@ public class PresentBlock extends BaseEntityBlock {
     }
 
     //Called when block gets destroyed
+
+
     @Override
-    public void onRemove(BlockState p_60515_, Level p_60516_, BlockPos p_60517_, BlockState p_60518_, boolean p_60519_) {
-        //TODO: Summon items on level with a slight delay in between
-        System.out.print("remove");
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+        PresentBlockEntity entity = (PresentBlockEntity) level.getBlockEntity(pos);
+        assert entity != null;
+        ItemStackHandler handler = entity.itemHandler;
+        for(int i = 0; i < handler.getSlots(); i++)
+        {
+            ItemEntity item = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), handler.getStackInSlot(i));
+            level.addFreshEntity(item);
+        }
+        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
+    }
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState p_60569_, boolean p_60570_) {
+        super.onPlace(state, level, pos, p_60569_, p_60570_);
     }
 
     @Nullable

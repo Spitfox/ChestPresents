@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class PresentBlockEntity extends BlockEntity {
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(27)
+    public final ItemStackHandler itemHandler = new ItemStackHandler(27)
     {
         @Override
         protected void onContentsChanged(int slot)
