@@ -7,14 +7,12 @@ modId = "chestpresents"
 version = "${file.jarVersion}"
 displayName = "Chestpresents"
 #updateJSONURL="https://"
-#displayURL="https://"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/present-block"
 #logoFile="chestpresents.png"
-#credits=""
-authors = "JustusWalterHelk"
+credits="Spitfox"
+authors = "JustusWalterHelk, lu3arm"
 #displayTest="MATCH_VERSION"
-description = '''
-Allows the player to turn a chest into a gift
-'''
+description = '''Allows the player to turn a chest into a gift. You will need a wrapping paper.'''
 [[dependencies.chestpresents]]
 modId = "forge"
 mandatory = true
