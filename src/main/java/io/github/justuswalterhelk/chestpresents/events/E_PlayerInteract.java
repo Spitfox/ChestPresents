@@ -40,6 +40,7 @@ public class E_PlayerInteract
             try {
                 ChestBlockEntity chest = (ChestBlockEntity) block;
                 if (chest != null && player.isCrouching() && event.getItemStack().is(ItemInit.wrapping_paper.get().asItem()) ) {
+                    event.getItemStack().shrink(1);
                     InvWrapper handler = (InvWrapper) chest.getCapability(ForgeCapabilities.ITEM_HANDLER).orElseThrow(RuntimeException::new);
                     ItemStackHandler inv = new ItemStackHandler(handler.getSlots());
                     for(int i = 0; i < handler.getSlots(); i++)
