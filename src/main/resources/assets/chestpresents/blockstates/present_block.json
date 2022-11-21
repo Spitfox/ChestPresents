@@ -1,9 +1,16 @@
 {
   "variants":
   {
-    "":
-    {
-      "model": "chestpresents:block/present_block"
-    }
+    "":[
+      {
+        "model": "chestpresents:block/present_block/present_block_blue"
+      },
+      {
+        "model": "chestpresents:block/present_block/present_block_red"
+      },
+      {
+        "model": "chestpresents:block/present_block/present_block_green"
+      }
+    ]
   }
 }
