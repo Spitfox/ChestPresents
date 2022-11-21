@@ -2,9 +2,9 @@
 	"credit": "by Spitfox",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "chestpresents:blocks/present_block/schleife_red",
-		"2": "chestpresents:blocks/present_block/base_yellow",
-		"particle": "chestpresents:blocks/present_block/partikel_yellow"
+		"1": "chestpresents:blocks/present_block/ribbon_green",
+		"2": "chestpresents:blocks/present_block/base",
+		"particle": "chestpresents:blocks/present_block/particle"
 	},
 	"elements": [
 		{
