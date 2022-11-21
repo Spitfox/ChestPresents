@@ -3,6 +3,7 @@ package io.github.justuswalterhelk.chestpresents;
 import com.mojang.logging.LogUtils;
 import io.github.justuswalterhelk.chestpresents.blocks.PresentBlock;
 import io.github.justuswalterhelk.chestpresents.blocks.PresentBlockEntity;
+import io.github.justuswalterhelk.chestpresents.events.E_PlayerInteract;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -56,62 +57,11 @@ public class Main {
     {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new E_PlayerInteract());
 
         BlockEntityInit.BLOCK_ENTITES.register(bus);
         BlockInit.BLOCKS.register(bus);
         ItemInit.ITEMS.register(bus);
     }
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Main.MODID);
-    @SubscribeEvent
-    public void PlayerInteract(PlayerInteractEvent.RightClickBlock event)
-    {
-
-        Level level = event.getLevel();
-        BlockPos position = event.getPos();
-        Player player = event.getEntity();
-
-        ItemStack blockToPlace = event.getItemStack();
-
-        if(blockToPlace.is(BlockInit.presentBlock.get().asItem()))
-        {
-            CompoundTag tag = blockToPlace.getTag();
-            BlockEntity block1 =  level.getBlockEntity(position.above());
-            System.out.print("BlockEntity at " + position);
-            System.out.print(block1);
-            //System.out.print(level.getBlockEntity(position, BlockEntityInit.present_block_entity.get()));
-           // entity.load(tag);
-        }
-        else
-        {
-            BlockEntity block = level.getBlockEntity(position);
-            try {
-                ChestBlockEntity chest = (ChestBlockEntity) block;
-                if (chest != null && player.isCrouching()) {
-                    InvWrapper handler = (InvWrapper) chest.getCapability(ForgeCapabilities.ITEM_HANDLER).orElseThrow(RuntimeException::new);
-                    ItemStackHandler inv = new ItemStackHandler(handler.getSlots());
-                    for(int i = 0; i < handler.getSlots(); i++)
-                    {
-                        inv.setStackInSlot(i, handler.getStackInSlot(i));
-                    }
-                    CompoundTag tag = inv.serializeNBT();
-                    chest.clearContent();
-                    level.destroyBlock(position, false);
-                    ItemStack present = new ItemStack(ItemInit.present_item.get());
-
-
-                    present.setTag(tag);
-
-                    ItemEntity item = new ItemEntity(level, position.getX(), position.getY(), position.getZ(), present);
-                    level.addFreshEntity(item);
-                }
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
-
-
-    }
 }
