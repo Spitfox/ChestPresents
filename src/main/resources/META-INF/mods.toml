@@ -1,17 +1,17 @@
 modLoader = "javafml"
 loaderVersion = "[43,)"
 license = "MIT"
-#issueTrackerURL="https://"
+#issueTrackerURL="https://github.com/Spitfox/ChestPresents/issues"
 [[mods]]
 modId = "chestpresents"
-version = "${file.jarVersion}"
-displayName = "Chestpresents"
-#updateJSONURL="https://"
+version = "0.1"
+displayName = "Present Block"
+#updateJSONURL="" auto update checker
 displayURL="https://www.curseforge.com/minecraft/mc-mods/present-block"
-#logoFile="chestpresents.png"
+logoFile="logo.png"
 credits="Spitfox"
 authors = "JustusWalterHelk, lu3arm"
-#displayTest="MATCH_VERSION"
+displayTest="MATCH_VERSION"
 description = '''Allows the player to turn a chest into a gift. You will need a wrapping paper.'''
 [[dependencies.chestpresents]]
 modId = "forge"
