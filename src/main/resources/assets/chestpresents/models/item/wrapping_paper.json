@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chestpresents:item/wrapping_paper"
+    "layer0": "chestpresents:items/wrapping_paper"
   }
 }
