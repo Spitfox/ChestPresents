@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[43,)"
 license = "MIT"
-#issueTrackerURL="https://github.com/Spitfox/ChestPresents/issues"
+issueTrackerURL="https://github.com/Spitfox/ChestPresents/issues"
 [[mods]]
 modId = "chestpresents"
 version = "0.1"
