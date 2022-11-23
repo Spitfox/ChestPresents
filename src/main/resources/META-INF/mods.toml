@@ -4,11 +4,11 @@ license = "MIT"
 issueTrackerURL="https://github.com/Spitfox/ChestPresents/issues"
 [[mods]]
 modId = "chestpresents"
-version = "0.1"
+version = "0.2"
 displayName = "Present Block"
 #updateJSONURL="" auto update checker
 displayURL="https://www.curseforge.com/minecraft/mc-mods/present-block"
-logoFile="logo.png"
+#logoFile=""
 credits="Spitfox"
 authors = "JustusWalterHelk, lu3arm"
 displayTest="MATCH_VERSION"
